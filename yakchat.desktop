@@ -1,0 +1,18 @@
+[Desktop Entry]
+Name=YakChat
+Comment=Independent Linux Desktop Client for WhatsApp Web
+GenericName=Cliente de Mensajería
+Exec=yakchat %U
+Icon=yakchat
+Terminal=false
+Type=Application
+StartupNotify=true
+StartupWMClass=YakChat
+Categories=Network;InstantMessaging;Chat;AudioVideo;
+MimeType=x-scheme-handler/whatsapp;
+Keywords=YakChat;chat;messaging;llamadas;webrtc;calls;
+Actions=NewChat;
+
+[Desktop Action NewChat]
+Name=Abrir YakChat
+Exec=yakchat

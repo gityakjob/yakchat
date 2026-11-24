@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'self'">
+  <title>Abrir enlace o teléfono — YakChat</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, Cantarell, sans-serif;
+      background-color: #111b21;
+      color: #e9edef;
+      padding: 20px 22px;
+      user-select: none;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1 {
+      font-size: 16px;
+      font-weight: 600;
+      color: #e9edef;
+      margin-bottom: 6px;
+    }
+
+    .subtitle {
+      font-size: 12.5px;
+      line-height: 1.45;
+      color: #8696a0;
+      margin-bottom: 14px;
+    }
+
+    .subtitle code {
+      font-family: monospace;
+      font-size: 11.5px;
+      background: #202c33;
+      color: #2dd4bf;
+      padding: 1px 5px;
+      border-radius: 4px;
+    }
+
+    .input-wrap {
+      margin-bottom: 10px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 10px 12px;
+      font-size: 13.5px;
+      color: #e9edef;
+      background-color: #202c33;
+      border: 1px solid #2a3942;
+      border-radius: 8px;
+      outline: none;
+      transition: border-color 0.15s ease;
+    }
+
+    input[type="text"]:focus {
+      border-color: #0d9488;
+    }
+
+    input[type="text"]::placeholder {
+      color: #667781;
+    }
+
+    .status-row {
+      min-height: 20px;
+      font-size: 12px;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .status-loading {
+      color: #2dd4bf;
+    }
+
+    .status-error {
+      color: #f87171;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    button {
+      padding: 8px 16px;
+      font-size: 13px;
+      font-weight: 500;
+      border-radius: 8px;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: background-color 0.15s ease, opacity 0.15s ease;
+    }
+
+    button:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+    }
+
+    .btn-cancel {
+      background-color: #202c33;
+      color: #d1d7db;
+      border-color: #2a3942;
+    }
+
+    .btn-cancel:hover:not(:disabled) {
+      background-color: #2a3942;
+    }
+
+    .btn-open {
+      background-color: #0d9488;
+      color: #ffffff;
+    }
+
+    .btn-open:hover:not(:disabled) {
+      background-color: #0f766e;
+    }
+  </style>
+</head>
+<body>
+  <h1>Abrir enlace o número de teléfono</h1>
+  <p class="subtitle">
+    Pega un enlace <code>api.whatsapp.com/message/...</code>, <code>wa.me/...</code>,
+    <code>chat.whatsapp.com/...</code>, <code>whatsapp://...</code> o un número con código de país.
+  </p>
+
+  <form id="open-link-form" novalidate>
+    <div class="input-wrap">
+      <input
+        id="url-input"
+        type="text"
+        autocomplete="off"
+        spellcheck="false"
+        placeholder="https://api.whatsapp.com/message/... o +55 41 99999-9999"
+      />
+    </div>
+
+    <div id="status-msg" class="status-row" aria-live="polite"></div>
+
+    <div class="actions">
+      <button type="button" id="cancel-btn" class="btn-cancel">Cancelar</button>
+      <button type="submit" id="open-btn" class="btn-open">Abrir chat</button>
+    </div>
+  </form>
+
+  <script src="./open-link.js"></script>
+</body>
+</html>

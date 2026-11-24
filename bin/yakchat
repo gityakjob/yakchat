@@ -1,0 +1,71 @@
+#!/usr/bin/env bash
+# YakChat launcher for CachyOS / Arch Linux
+set -e
+
+FLAGS_FILE="${XDG_CONFIG_HOME:-${HOME}/.config}/yakchat-flags.conf"
+CARRIAGE_RETURN="$(printf '\r')"
+
+# Locate Application Directory dynamically
+APP_DIR=""
+SCRIPT_DIR="$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")" && pwd)"
+
+if [ -f "$SCRIPT_DIR/../app/main.js" ]; then
+    APP_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
+elif [ -d "${XDG_DATA_HOME:-${HOME}/.local/share}/yakchat/app" ]; then
+    APP_DIR="${XDG_DATA_HOME:-${HOME}/.local/share}/yakchat"
+elif [ -d "/usr/share/yakchat/app" ]; then
+    APP_DIR="/usr/share/yakchat"
+elif [ -d "/usr/lib/yakchat/app" ]; then
+    APP_DIR="/usr/lib/yakchat"
+fi
+
+if [ -z "$APP_DIR" ]; then
+    echo "Error: Directorio de aplicación de YakChat no encontrado." >&2
+    exit 1
+fi
+
+# Detect best available Electron runtime
+if [ -x "$APP_DIR/node_modules/.bin/electron" ]; then
+    ELECTRON_BIN="$APP_DIR/node_modules/.bin/electron"
+elif command -v electron38 >/dev/null 2>&1; then
+    ELECTRON_BIN="$(command -v electron38)"
+elif command -v electron >/dev/null 2>&1; then
+    ELECTRON_BIN="$(command -v electron)"
+else
+    echo "Error: Electron no encontrado. Por favor instala electron con: sudo pacman -S electron38" >&2
+    exit 1
+fi
+
+# Detect Wayland session
+WAYLAND_FLAGS=()
+if [ -n "$WAYLAND_DISPLAY" ] || [ "$XDG_SESSION_TYPE" = "wayland" ]; then
+    WAYLAND_FLAGS=(
+        "--ozone-platform-hint=auto"
+        "--enable-features=WaylandWindowDecorations,WebRTCPipeWireCapturer,VaapiVideoDecoder,VaapiVideoEncoder"
+    )
+fi
+
+# Collect user flags from ~/.config/yakchat-flags.conf
+USER_FLAGS=()
+if [ -r "${FLAGS_FILE}" ]; then
+    while IFS= read -r flag || [ -n "${flag}" ]; do
+        flag=${flag%"${CARRIAGE_RETURN}"}
+        leading_space=${flag%%[![:space:]]*}
+        flag=${flag#"${leading_space}"}
+        trailing_space=${flag##*[![:space:]]}
+        flag=${flag%"${trailing_space}"}
+
+        case ${flag} in
+            ''|'#'*) continue ;;
+        esac
+
+        USER_FLAGS+=("${flag}")
+    done < "${FLAGS_FILE}"
+fi
+
+# Launch application
+exec "$ELECTRON_BIN" \
+    "${WAYLAND_FLAGS[@]}" \
+    "${USER_FLAGS[@]}" \
+    "$APP_DIR" \
+    "$@"

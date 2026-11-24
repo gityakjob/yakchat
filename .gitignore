@@ -1,0 +1,16 @@
+# Guía interna del agente/desarrollador (excluida del repo público y releases)
+INTERNAL_DEV_GUIDE.md
+.PROJECT_INTERNAL_GUIDE.md
+*.internal.md
+
+node_modules/
+dist/
+pkg/
+src/
+*.pkg.tar.zst
+*.tar.gz
+.DS_Store
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

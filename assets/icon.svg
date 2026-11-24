@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="yakGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06b6d4"/>
+      <stop offset="50%" stop-color="#0d9488"/>
+      <stop offset="100%" stop-color="#047857"/>
+    </linearGradient>
+    <linearGradient id="yakHighlight" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.32"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.0"/>
+    </linearGradient>
+  </defs>
+  <rect x="24" y="24" width="464" height="464" rx="112" fill="url(#yakGrad)"/>
+  <rect x="28" y="28" width="456" height="456" rx="108" fill="none" stroke="url(#yakHighlight)" stroke-width="6"/>
+  <path fill="#ffffff" d="M 124 128 H 388 A 48 48 0 0 1 436 176 V 304 A 48 48 0 0 1 388 352 H 214 L 136 404 C 124 412 110 403 113 389 L 122 352 H 124 A 48 48 0 0 1 76 304 V 176 A 48 48 0 0 1 124 128 Z"/>
+  <path fill="none" stroke="#0d9488" stroke-width="38" stroke-linecap="round" stroke-linejoin="round" d="M 184 190 C 184 226 216 250 256 254 C 296 250 328 226 328 190 M 256 252 V 308"/>
+</svg>

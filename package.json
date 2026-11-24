@@ -1,0 +1,35 @@
+{
+  "name": "yakchat",
+  "version": "1.1.0",
+  "description": "Independent open-source Linux desktop wrapper for WhatsApp Web on CachyOS / Arch Linux with WebRTC calls, native notifications, deep links, and translation support",
+  "main": "app/main.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gityakjob/yakchat.git"
+  },
+  "homepage": "https://github.com/gityakjob/yakchat",
+  "scripts": {
+    "start": "electron .",
+    "start:system": "/usr/bin/electron38 .",
+    "install:desktop": "bash ./install.sh",
+    "uninstall:desktop": "bash ./uninstall.sh"
+  },
+  "keywords": [
+    "yakchat",
+    "chat",
+    "messaging",
+    "desktop",
+    "cachyos",
+    "arch-linux",
+    "webrtc",
+    "voice-calls",
+    "video-calls",
+    "wayland",
+    "pipewire"
+  ],
+  "author": "gityakjob",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^44.7.2"
+  }
+}
